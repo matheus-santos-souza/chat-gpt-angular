@@ -1,0 +1,85 @@
+<div class="page-content page-container h-100" id="page-content">
+  <div class="padding h-100 justify-content-center">
+    <div class="row container d-flex justify-content-center w-100 h-100" style="margin: auto">
+      <div class="col-md-6 h-100 w-100">
+        <div class="card card-bordered h-100">
+          <div class="card-header">
+            <h4 class="card-title"><strong>Chatbot - Betina</strong></h4>
+            <a style="cursor: pointer;" class="excluir" (click)="limpar()"
+              ><i class="bi bi-trash3 fs-5 p-1"></i></a
+            >
+          </div>
+
+          <div
+            style="background: url('./../../assets/wpp-noturno.jpg');"
+            class="ps-container ps-theme-default ps-active-y h-80"
+            id="chat-content"
+            style="overflow-y: scroll !important; height: inherit;"
+          >
+            <div  *ngFor="let message of this.messages" [ngClass]="message.role === 'assistant' ? '' : 'media media-chat media-chat-reverse d-flex'">
+
+              <div *ngIf="message.role === 'assistant'">
+                <div class="media media-chat d-flex">
+                  <img
+                    class="avatar"
+                    src="./../../assets/file.enc"
+                    alt="..."
+                  />
+                  <div class="media-body">
+                    <p>{{message.content}}</p>
+                    <p class="meta"><time datetime="2023">{{time}}</time></p>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="message.role === 'user'">
+                <div class="media media-chat d-flex">
+                  <div class="media-body media-body-user">
+                    <p>{{message.content}}</p>
+                    <p class="meta"><time datetime="2023">{{time}}</time></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px">
+              <div
+                class="ps-scrollbar-x"
+                tabindex="0"
+                style="left: 0px; width: 0px"
+              ></div>
+            </div>
+            <div
+              class="ps-scrollbar-y-rail"
+              style="top: 0px; height: 0px; right: 2px"
+            >
+              <div
+                class="ps-scrollbar-y"
+                tabindex="0"
+                style="top: 0px; height: 2px"
+              ></div>
+            </div>
+          </div>
+
+          <div class="publisher bt-1 border-light form-group">
+            <img
+              class="avatar avatar-xs"
+              src="https://img.icons8.com/color/36/000000/administrator-male.png"
+              alt="..."
+            />
+            <input
+              #input
+              id="input"
+              class="publisher-input form-control"
+              type="text"
+              placeholder="Digite sua pergunta"
+              (keydown.enter)="enviar()"
+            />
+            <button class="publisher-btn text-info" (click)="enviar()"
+              ><i class="bi bi-send-fill fs-4"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
