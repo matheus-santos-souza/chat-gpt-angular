@@ -20,4 +20,14 @@ export class ChatbotService {
       }
     );
   }
+
+  getIntencao(message: any): Observable<HttpResponse<any>> {
+    return this.http.post<any>(
+      BASE_API_URL + '/intencao',
+      message,
+      {
+        observe: 'response',
+      }
+    );
+  }
 }

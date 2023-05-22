@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatIntencaoComponent } from './chat-intencao/chat-intencao.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    ChatIntencaoComponent
   ],
   imports: [
     BrowserModule,
