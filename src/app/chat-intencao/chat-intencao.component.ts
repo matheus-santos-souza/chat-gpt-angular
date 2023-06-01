@@ -52,11 +52,7 @@ export class ChatIntencaoComponent {
             this.messages.push(
               {
                 role: "assistant",
-                content: "Não entendi muito bem 🙋‍♀️! Você pode descrever melhor qual opção deseja acessar?"
-              },
-              {
-                role: "assistant",
-                content: `Ou acesse o "Menu" para navegar em todas as opções!`
+                content: `Não entendi muito bem 🙋‍♀️! Você pode descrever melhor qual opção deseja acessar? \nOu acesse o "Menu" para navegar em todas as opções!`
               }
             )
           }
@@ -76,15 +72,7 @@ export class ChatIntencaoComponent {
             this.messages.push(
               {
                 role: "assistant",
-                content: `Desculpe 🙋‍♀️, parece que tenho muitas opções que podem te ajudar sobre esse assunto! aqui vai algumas delas:`
-              },
-              {
-                role: "assistant",
-                content: `${opcoes.join(' | ')}`
-              },
-              {
-                role: "assistant",
-                content: `Escolha uma das opções acima!👆 ou acesse o "Menu" para navegar em todas as opções!`
+                content: `Desculpe 🙋‍♀️, parece que tenho muitas opções que podem te ajudar sobre esse assunto! aqui vai algumas delas: \n${opcoes.map((text: string) => `- ${text}`).join('\n')} \n\nEscolha uma das opções acima!👆 ou acesse o "Menu" para navegar em todas as opções!`
               }
             )
           }
@@ -94,15 +82,7 @@ export class ChatIntencaoComponent {
             this.messages.push(
               {
                 role: "assistant",
-                content: `Achei algumas opções que podem te ajudar:`
-              },
-              {
-                role: "assistant",
-                content: `${funcionalidades.join(' | ')}`
-              },
-              {
-                role: "assistant",
-                content: `Escolha uma das opções acima!👆 ou acesse o "Menu" para navegar em todas as opções!`
+                content: `Achei algumas opções que podem te ajudar: \n${funcionalidades.map((text: string) => `- ${text}`).join('\n')} \n\nEscolha uma das opções acima!👆 ou acesse o "Menu" para navegar em todas as opções!`
               }
             )
           }

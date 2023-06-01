@@ -21,6 +21,16 @@ export class ChatbotService {
     );
   }
 
+  getResponseBanco(messages: any): Observable<HttpResponse<any>> {
+    return this.http.post<any>(
+      BASE_API_URL + '/perguntar/banco',
+      messages,
+      {
+        observe: 'response',
+      }
+    );
+  }
+
   getIntencao(message: any): Observable<HttpResponse<any>> {
     return this.http.post<any>(
       BASE_API_URL + '/intencao',

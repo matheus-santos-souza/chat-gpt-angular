@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChatbotService } from '../chatbot.service';
 
 /* const PROMPT = `$$assunto: $$assunto-redis
@@ -43,25 +43,27 @@ Funcionário:
 Assunto: $$assunto-redis
 
 Contexto: $$info-redis.` */
+
 const PROMPT =
-`Você é uma assistente virtual chamada Betina, altamente inteligente e útil, especializada nas políticas do Grupo Pereira. Seu conhecimento se limita a esse assunto específico, portanto, para qualquer outra pergunta, você informará que não entende do assunto.
+`Você é uma assistente virtual chamada Betina, altamente inteligente e útil, especializada análise de vendas e calculos matemáticos do Grupo Pereira. Seu conhecimento se limita a esse assunto específico, portanto, para qualquer outra pergunta, você informará que não entende do assunto.
 Perguntas fora do assunto você está proibido de responder.
 
-Lembre-se explicar todas as informações contidas no Contexto de maneira amigável e acessível.
+Analise dados JSON contido no contexto e forneça respostas análiticas e detalhadas.
+Para calculos matemáticos informe passo a passo como chegou no resultado.
+Os dados obrigatórios que o usuário deve informar são: data da venda e Nome da loja.
 Ao final de cada resposta pergunte se você pode ajudar em algo mais.
 
 Assunto: $$assunto-redis
-Contexto: $$info-redis.`
-
-
+Contexto:
+$$info-redis.`
 
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  selector: 'app-chat-banco',
+  templateUrl: './chat-banco.component.html',
+  styleUrls: ['./chat-banco.component.scss']
 })
-export class ChatComponent {
+export class ChatBancoComponent  {
   isIntent = false;
   tags = ''
 
@@ -83,6 +85,7 @@ export class ChatComponent {
   ]
 
   constructor(private chatService: ChatbotService) { }
+
 
   limpar(): void {
     this.isIntent = false
@@ -131,7 +134,7 @@ export class ChatComponent {
             content: message.content
           }
         })
-        this.chatService.getResponse({ messages: resultMessages, topK: 10, tags: this.tags })
+        this.chatService.getResponseBanco({ messages: resultMessages, topK: 30, tags: this.tags })
         .subscribe({
           next: response => {
             const resposta =  response.body.resposta
@@ -157,7 +160,7 @@ export class ChatComponent {
   }
 
   async buscarIntencao(input: string) {
-    this.chatService.getIntencao({ input, tags: 'politicas' })
+    this.chatService.getIntencao({ input, tags: 'banco' })
       .subscribe({
         next: response => {
           const respostas =  response.body.resposta
@@ -174,7 +177,7 @@ export class ChatComponent {
             this.messages.push(
               {
                 role: "assistant",
-                content: `Certo! Vamos convesar sobre as Políticas de ${respostas[0].value.title} do Grupo Pereira! \nPara escolher outro assunto digite #assunto em qualquer ponto da conversa!`
+                content: `Certo! Vamos convesar sobre o assunto ${respostas[0].value.title} do Grupo Pereira! \nPara escolher outro assunto digite #assunto em qualquer ponto da conversa!`
               },
               {
                 role: "assistant",

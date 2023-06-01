@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChatIntencaoComponent } from './chat-intencao/chat-intencao.component';
+import { ChatBancoComponent } from './chat-banco/chat-banco.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    ChatIntencaoComponent
+    ChatIntencaoComponent,
+    ChatBancoComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@
                       src="./../../assets/file.enc"
                       alt="..."
                     />
-              <h4 class="card-title px-3"><strong>Betina - Intenção</strong></h4>
+              <h4 class="card-title px-3"><strong>Betina - Banco de Dados</strong></h4>
             </div>
             <a style="cursor: pointer;" class="excluir" (click)="limpar()"
               ><i class="bi bi-trash3 fs-5 p-1"></i></a
@@ -33,8 +33,8 @@
                     alt="..."
                   />
                   <div class="media-body">
-                    <p class="break-line">{{message.content}}</p>
-                    <!-- <p class="meta"><time datetime="2023">{{time}}</time></p> -->
+                    <p class="break-line">{{message.content.replaceAll('\\n', '\n')}}</p>
+                    <p *ngIf="message.isRespostaVerificada" class="meta">Resposta verificada ✅</p>
                   </div>
                 </div>
               </div>
