@@ -1,6 +1,6 @@
 <div class="page-content page-container h-100" id="page-content">
   <div class="padding h-100 justify-content-center">
-    <div class="row container d-flex justify-content-center w-100 h-100" style="margin: auto">
+    <div class="row container d-flex justify-content-center w-100 h-100" style="margin: auto; max-width: 600px;">
       <div class="col-md-6 h-100 w-100">
         <div class="card card-bordered h-100">
           <div class="card-header">
@@ -15,6 +15,12 @@
             <a style="cursor: pointer;" class="excluir" (click)="limpar()"
               ><i class="bi bi-trash3 fs-5 p-1"></i></a
             >
+          </div>
+
+          <div class="loader" *ngIf="this.loading" style="z-index: 9999999999;">
+            <div class="inner one"></div>
+            <div class="inner two"></div>
+            <div class="inner three"></div>
           </div>
 
           <div
@@ -47,6 +53,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
 
             <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px">
@@ -54,7 +61,9 @@
                 class="ps-scrollbar-x"
                 tabindex="0"
                 style="left: 0px; width: 0px"
-              ></div>
+              >
+
+            </div>
             </div>
             <div
               class="ps-scrollbar-y-rail"

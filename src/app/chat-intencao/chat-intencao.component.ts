@@ -8,6 +8,8 @@ import { ChatbotService } from '../chatbot.service';
   styleUrls: ['./chat-intencao.component.scss']
 })
 export class ChatIntencaoComponent {
+  loading = false
+
   time = new Intl
     .DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' })
     .format(new Date())
@@ -34,6 +36,7 @@ export class ChatIntencaoComponent {
 
   async enviar(): Promise<any> {
     if (this.input.nativeElement.value !== '') {
+      this.loading = true
       this.messages.push({
         role: "user",
         content: this.input.nativeElement.value
@@ -86,12 +89,14 @@ export class ChatIntencaoComponent {
               }
             )
           }
+          this.loading = false
         },
         error: error => {
           this.messages.push({
             role: "assistant",
             content: "Algo deu errado... desculpe o trasntorno! 🙋‍♀️"
           })
+          this.loading = false
         },
       });
     }

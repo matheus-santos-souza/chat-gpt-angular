@@ -66,6 +66,7 @@ $$info-redis.`
 export class ChatBancoComponent  {
   isIntent = false;
   tags = ''
+  loading = false
 
   time = new Intl
     .DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' })
@@ -128,6 +129,7 @@ export class ChatBancoComponent  {
           }
         ]
       } else {
+        this.loading = true
         const resultMessages = this.messages.map((message) => {
           return {
             role: message.role,
@@ -146,12 +148,14 @@ export class ChatBancoComponent  {
             const result = [...resposta ].pop()
             result.isRespostaVerificada = response.body?.isRespostaVerificada
             this.messages.push(result)
+            this.loading = false
           },
           error: error => {
             this.messages.push({
               role: "assistant",
               content: "Algo deu errado... desculpe o trasntorno! 🙋‍♀️"
             })
+            this.loading = false
           },
         });
       }
@@ -160,6 +164,7 @@ export class ChatBancoComponent  {
   }
 
   async buscarIntencao(input: string) {
+    this.loading = true
     this.chatService.getIntencao({ input, tags: 'banco' })
       .subscribe({
         next: response => {
@@ -208,12 +213,14 @@ export class ChatBancoComponent  {
               }
             )
           }
+          this.loading = false
         },
         error: error => {
           this.messages.push({
             role: "assistant",
             content: "Algo deu errado... desculpe o trasntorno! 🙋‍♀️"
           })
+          this.loading = false
         },
       });
   }

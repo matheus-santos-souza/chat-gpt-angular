@@ -53,9 +53,6 @@ Ao final de cada resposta pergunte se você pode ajudar em algo mais.
 Assunto: $$assunto-redis
 Contexto: $$info-redis.`
 
-
-
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -64,6 +61,7 @@ Contexto: $$info-redis.`
 export class ChatComponent {
   isIntent = false;
   tags = ''
+  loading = false
 
   time = new Intl
     .DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' })
@@ -125,6 +123,7 @@ export class ChatComponent {
           }
         ]
       } else {
+        this.loading = true
         const resultMessages = this.messages.map((message) => {
           return {
             role: message.role,
@@ -143,12 +142,14 @@ export class ChatComponent {
             const result = [...resposta ].pop()
             result.isRespostaVerificada = response.body?.isRespostaVerificada
             this.messages.push(result)
+            this.loading = false
           },
           error: error => {
             this.messages.push({
               role: "assistant",
               content: "Algo deu errado... desculpe o trasntorno! 🙋‍♀️"
             })
+            this.loading = false
           },
         });
       }
@@ -157,6 +158,7 @@ export class ChatComponent {
   }
 
   async buscarIntencao(input: string) {
+    this.loading = true
     this.chatService.getIntencao({ input, tags: 'politicas' })
       .subscribe({
         next: response => {
@@ -205,12 +207,14 @@ export class ChatComponent {
               }
             )
           }
+          this.loading = false
         },
         error: error => {
           this.messages.push({
             role: "assistant",
             content: "Algo deu errado... desculpe o trasntorno! 🙋‍♀️"
           })
+          this.loading = false
         },
       });
   }
