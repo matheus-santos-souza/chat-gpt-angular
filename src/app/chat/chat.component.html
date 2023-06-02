@@ -1,9 +1,9 @@
 <div class="page-content page-container h-100" id="page-content">
   <div class="padding h-100 justify-content-center">
     <div class="row container d-flex justify-content-center w-100 h-100" style="margin: auto; max-width: 600px;">
-      <div class="col-md-6 h-100 w-100">
-        <div class="card card-bordered h-100">
-          <div class="card-header">
+      <div class="col-md-6 h-100 w-100 radius">
+        <div class="card card-bordered h-100 radius">
+          <div class="card-header radius-top">
             <div class="d-flex align-items-center">
               <img
                       class="avatar"
@@ -26,10 +26,10 @@
           <div
             style="background: url('./../../assets/wpp-noturno.jpg');"
             class="ps-container ps-theme-default ps-active-y h-80"
-            id="chat-content"
+            #chatcontent
             style="overflow-y: scroll !important; height: inherit;"
           >
-            <div  *ngFor="let message of this.messages" [ngClass]="message.role === 'assistant' ? '' : 'media media-chat media-chat-reverse d-flex'">
+            <div #scroll *ngFor="let message of this.messages" [ngClass]="message.role === 'assistant' ? '' : 'media media-chat media-chat-reverse d-flex'">
 
               <div *ngIf="message.role === 'assistant'">
                 <div class="media media-chat d-flex">
@@ -38,14 +38,14 @@
                     src="./../../assets/file.enc"
                     alt="..."
                   />
-                  <div class="media-body">
+                  <div   class="media-body">
                     <p class="break-line">{{message.content.replaceAll('\\n', '\n')}}</p>
                     <p *ngIf="message.isRespostaVerificada" class="meta">Resposta verificada ✅</p>
                   </div>
                 </div>
               </div>
 
-              <div *ngIf="message.role === 'user'">
+              <div  *ngIf="message.role === 'user'">
                 <div class="media media-chat d-flex">
                   <div class="media-body media-body-user">
                     <p class="break-line">{{message.content}}</p>
@@ -65,6 +65,7 @@
             <div
               class="ps-scrollbar-y-rail"
               style="top: 0px; height: 0px; right: 2px"
+
             >
               <div
                 class="ps-scrollbar-y"
