@@ -7,13 +7,15 @@ import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChatIntencaoComponent } from './chat-intencao/chat-intencao.component';
 import { ChatBancoComponent } from './chat-banco/chat-banco.component';
+import { ChatFunctionsComponent } from './chat-functions/chat-functions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
     ChatIntencaoComponent,
-    ChatBancoComponent
+    ChatBancoComponent,
+    ChatFunctionsComponent
   ],
   imports: [
     BrowserModule,

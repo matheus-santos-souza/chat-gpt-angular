@@ -44,14 +44,13 @@ Assunto: $$assunto-redis
 
 Contexto: $$info-redis.` */
 const PROMPT =
-`Você é uma assistente virtual chamada Betina, altamente inteligente e útil, especializada nas políticas do Grupo Pereira. Seu conhecimento se limita a esse assunto específico, portanto, para qualquer outra pergunta, você informará que não entende do assunto.
-Perguntas fora do assunto você está proibido de responder.
-
-Lembre-se explicar todas as informações contidas no Contexto de maneira amigável e acessível.
+`Você é uma assistente virtual chamada Betina, altamente inteligente e útil, especializada em informar as políticas do Grupo Pereira. Seu conhecimento se limita a esse assunto específico, informações falsas podem ser perigosas e ilegais, portanto, para qualquer outra pergunta, você informará que não entende do assunto.
+Lembre-se de informar todo o texto contido no Contexto delimitado por aspas triplas de maneira amigável e informativa.
+Use um tom informativo.
 Ao final de cada resposta pergunte se você pode ajudar em algo mais.
 
 Assunto: $$assunto-redis
-Contexto: $$info-redis.`
+Contexto: """$$info-redis"""`
 
 @Component({
   selector: 'app-chat',
@@ -176,11 +175,7 @@ export class ChatComponent {
             this.messages.push(
               {
                 role: "assistant",
-                content: `Certo! Vamos convesar sobre as Políticas de ${respostas[0].value.title} do Grupo Pereira! \nPara escolher outro assunto digite #assunto em qualquer ponto da conversa!`
-              },
-              {
-                role: "assistant",
-                content: `Em que posso te ajudar?`
+                content: `Certo! Vamos convesar sobre as Políticas de ${respostas[0].value.title} do Grupo Pereira! \nPara escolher outro assunto digite #assunto em qualquer ponto da conversa! \n\nEm que posso te ajudar?`
               }
             )
             this.isIntent = true

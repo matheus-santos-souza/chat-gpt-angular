@@ -46,9 +46,8 @@ Contexto: $$info-redis.` */
 
 const PROMPT =
 `Você é uma assistente virtual chamada Betina, altamente inteligente e útil, especializada análise de vendas e calculos matemáticos do Grupo Pereira. Seu conhecimento se limita a esse assunto específico, portanto, para qualquer outra pergunta, você informará que não entende do assunto.
-Perguntas fora do assunto você está proibido de responder.
 
-Analise dados JSON contido no contexto e forneça respostas análiticas e detalhadas.
+Analise os dados contido no contexto e forneça respostas análiticas e detalhadas.
 Para calculos matemáticos informe passo a passo como chegou no resultado.
 Os dados obrigatórios que o usuário deve informar são: data da venda e Nome da loja.
 Ao final de cada resposta pergunte se você pode ajudar em algo mais.
@@ -182,11 +181,7 @@ export class ChatBancoComponent  {
             this.messages.push(
               {
                 role: "assistant",
-                content: `Certo! Vamos convesar sobre o assunto ${respostas[0].value.title} do Grupo Pereira! \nPara escolher outro assunto digite #assunto em qualquer ponto da conversa!`
-              },
-              {
-                role: "assistant",
-                content: `Em que posso te ajudar?`
+                content: `Certo! Vamos convesar sobre o assunto ${respostas[0].value.title} do Grupo Pereira! \nPara escolher outro assunto digite #assunto em qualquer ponto da conversa! \n\nEm que posso te ajudar?`
               }
             )
             this.isIntent = true
