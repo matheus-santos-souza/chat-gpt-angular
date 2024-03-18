@@ -1,4 +1,58 @@
-<div class="page-content page-container h-100" id="page-content">
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <div class="betina-container mt-5">
+    <h1 class="betina">
+      Betina
+    </h1>
+  </div>
+  <div id="search-bar">
+    <div class="form">
+
+   
+      <div>
+        <img src="../../assets/search.png" alt = 'Ícone Pesquisa' id = search-icon (click)="enviar()">
+      </div>
+      <input type="text" placeholder="Pesquisa na Betina" (keydown.enter)="enviar()" #input>
+      <div>
+        <span class="material-symbols-outlined" alt="Limpar" id=keyboard-icon (click)="limpar()">
+          close
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="spinner-grow text-light mt-2" *ngIf="this.loading" role="status">
+    <span class="sr-only"></span>
+  </div>
+
+  <div *ngIf="this.success && this.textResponse && !this.loading" class="sql-viewer mt-4" style="width: 40rem;">
+    <p class="break-line text-light m-1">{{textResponse.replaceAll('\\n', '\n')}}</p>
+    <p *ngIf="this.isCached" class="m-1"style="color: gray">Resposta do cache ✅</p>
+  </div>
+
+  <div *ngIf="this.success && this.sqlQuery && !this.loading">
+    <div  class="sql-viewer">
+      <h2 class="sql-header">Consulta SQL</h2>
+      <pre class="sql-code" [innerHTML]="highlightedCode"></pre>
+    </div>
+  </div>
+  
+
+  
+  <!-- <div id="buttons">
+    <ul>
+      <li>
+        <button type="submit">Pesquisa Google</button>
+        <button type="submit">Estou com sorte</button>
+      </li>
+    </ul>
+  </div>
+  <div id="language">
+    <p>Disponibilizado pelo Google em: <span>English</span></p>
+  </div> -->
+</div>
+
+    
+<!-- <div class="page-content page-container h-100" id="page-content">
   <div class="padding h-100 justify-content-center">
     <div class="row container d-flex justify-content-center w-100 h-100" style="margin: auto; max-width: 500px;">
       <div class="col-md-6 h-100 w-100 radius">
@@ -10,7 +64,7 @@
                       src="./../../assets/file.enc"
                       alt="..."
                     />
-              <h4 class="card-title px-3"><strong>Betina - Perguntar</strong></h4>
+              <h4 class="card-title px-3"><strong>Betina - IA SQL</strong></h4>
             </div>
             <a style="cursor: pointer;" class="excluir" (click)="limpar()"
               ><i class="bi bi-trash3 fs-5 p-1"></i></a
@@ -33,14 +87,9 @@
 
               <div *ngIf="message.role === 'assistant'">
                 <div class="media media-chat d-flex">
-                <!--   <img
-                    class="avatar"
-                    src="./../../assets/file.enc"
-                    alt="..."
-                  /> -->
                   <div   class="media-body">
                     <p class="break-line">{{message.content.replaceAll('\\n', '\n')}}</p>
-                    <p *ngIf="message.isRespostaVerificada" class="meta">Resposta verificada ✅</p>
+                    <p *ngIf="message.isRespostaVerificada" class="meta">Resposta do cache ✅</p>
                   </div>
                 </div>
               </div>
@@ -49,7 +98,6 @@
                 <div class="media media-chat d-flex">
                   <div class="media-body media-body-user">
                     <p class="break-line">{{message.content}}</p>
-                    <!-- <p class="meta"><time datetime="2023">{{time}}</time></p> -->
                   </div>
                 </div>
               </div>
@@ -92,3 +140,4 @@
     </div>
   </div>
 </div>
+ -->
