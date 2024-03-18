@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ChatbotService } from '../chatbot.service';
 import hljs from 'highlight.js';
 import { format } from 'sql-formatter';
@@ -16,6 +16,16 @@ export class ChatComponent {
   isCached = false
   success = false
 
+  isSave = false
+  loadingSave = false
+
+  saveSql!: {
+    text: string,
+    query: string
+  }
+
+  isSqlVisible = false
+
   time = new Intl
     .DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit' })
     .format(new Date())
@@ -24,13 +34,28 @@ export class ChatComponent {
 
   constructor(private chatService: ChatbotService) {}
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === ' ') {
+      this.isSqlVisible = !this.isSqlVisible
+      event.preventDefault();
+    }
+  }
+
   limpar(): void {
-    this.success = false
-    this.loading = false
+    this.resetBooleans()
     this.sqlQuery = ''
     this.textResponse = ''
     this.input.nativeElement.value = ''
     this.input.nativeElement.focus()
+  }
+
+  resetBooleans(): void {
+    this.success = false
+    this.loading = false
+    this.isSave = false
+    this.loadingSave = false
+    this.isCached = false
   }
 
   private highlightCode(sql: string) {
@@ -38,6 +63,7 @@ export class ChatComponent {
   }
 
   async enviar(): Promise<any> {
+    this.resetBooleans()
     const input = this.input.nativeElement.value
 
     if (this.input.nativeElement.value !== '') {
@@ -57,12 +83,34 @@ export class ChatComponent {
           this.success = true
           this.loading = false
           this.highlightCode(this.sqlQuery)
+
+          this.saveSql = {
+            text: input,
+            query: resposta?.sql || ''
+          }
         },
         error: error => {
+          this.success = false
           this.loading = false
         },
       });
     }
+  }
+
+  async salvar(): Promise<any> {
+    this.loadingSave = true
+    this.chatService.saveSqlQuery(this.saveSql)
+      .subscribe({
+        next: response => {
+          const resposta = response.body
+          this.isSave = true
+          this.loadingSave = false
+        },
+        error: error => {
+          this.isSave = false
+          this.loadingSave = false
+        },
+      });
   }
 
 }

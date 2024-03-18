@@ -438,8 +438,14 @@ button, input, optgroup, select, textarea {
 }
  */
 
+.joinha {
+  cursor: pointer;
+  color: rgb(141, 141, 141);
+}
 
-
+.joinha:hover {
+  color: rgb(218, 218, 218);
+}
 
  .betina-container {
   display: flex;

@@ -29,12 +29,31 @@
     <p *ngIf="this.isCached" class="m-1"style="color: gray">Resposta do cache ✅</p>
   </div>
 
-  <div *ngIf="this.success && this.sqlQuery && !this.loading">
+  <div *ngIf="this.success && this.sqlQuery && !this.loading && this.isSqlVisible">
     <div  class="sql-viewer">
       <h2 class="sql-header">Consulta SQL</h2>
       <pre class="sql-code" [innerHTML]="highlightedCode"></pre>
     </div>
   </div>
+
+  <div *ngIf="this.success && this.sqlQuery && !this.loading && !this.isCached && !this.isSave && !this.loadingSave" class="d-flex" style="width: 42.5rem;">
+    <span class="material-symbols-outlined joinha mt-2" alt="Aprovar" (click)="salvar()">
+      thumb_up
+    </span>
+  </div>
+
+  <div *ngIf="this.loadingSave" class="d-flex" style="width: 42.5rem;">
+    <div class="spinner-grow text-light mt-2" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+
+  <div *ngIf="this.isSave" class="d-flex" style="width: 42.5rem;">
+    <span class="material-symbols-outlined" style="color: darkgreen;">
+      expand_circle_down
+    </span>
+  </div>
+  
   
 
   

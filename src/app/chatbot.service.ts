@@ -31,6 +31,16 @@ export class ChatbotService {
     );
   }
 
+  saveSqlQuery(savesql: { text: string, query: string}): Observable<HttpResponse<any>> {
+    return this.http.post<any>(
+      'http://localhost:4000/betina-redis/create-query-sql',
+      savesql,
+      {
+        observe: 'response',
+      }
+    );
+  }
+
   getResponseFunctions(messages: any): Observable<HttpResponse<any>> {
     return this.http.post<any>(
       BASE_API_URL + '/functions',
@@ -70,4 +80,5 @@ export class ChatbotService {
       }
     );
   }
+
 }
