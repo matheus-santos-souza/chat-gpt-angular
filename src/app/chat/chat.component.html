@@ -20,11 +20,16 @@
     </div>
   </div>
 
-  <div class="spinner-grow text-light mt-2" *ngIf="this.loading" role="status">
-    <span class="sr-only"></span>
+  <div *ngIf="this.loading" class="item mt-4">
+    <ngx-skeleton-loader count="1" animation="pulse" [theme]="{ 
+      'border-radius': '5px',
+      height: '100px',
+      'width': '42rem',
+      'background-color': 'rgb(80, 80, 80)'
+    }" />
   </div>
 
-  <div *ngIf="this.success && this.textResponse && !this.loading" class="sql-viewer mt-4" style="width: 40rem;">
+  <div *ngIf="this.success && this.textResponse && !this.loading" class="sql-viewer mt-4" style="width: 39rem;">
     <p class="break-line text-light m-1">{{textResponse.replaceAll('\\n', '\n')}}</p>
     <p *ngIf="this.isCached" class="m-1"style="color: gray">Resposta do cache ✅</p>
   </div>
@@ -36,127 +41,21 @@
     </div>
   </div>
 
-  <div *ngIf="this.success && this.sqlQuery && !this.loading && !this.isCached && !this.isSave && !this.loadingSave" class="d-flex" style="width: 42.5rem;">
-    <span class="material-symbols-outlined joinha mt-2" alt="Aprovar" (click)="salvar()">
+  <div *ngIf="this.success && this.sqlQuery && !this.loading && !this.isCached && !this.isSave && !this.loadingSave" class="d-flex" style="width: 41.5rem;">
+    <span class="material-symbols-outlined joinha mt-1" alt="Aprovar" (click)="salvar()" style="font-size: 25px;">
       thumb_up
     </span>
   </div>
 
-  <div *ngIf="this.loadingSave" class="d-flex" style="width: 42.5rem;">
-    <div class="spinner-grow text-light mt-2" role="status">
+  <div *ngIf="this.loadingSave" class="d-flex" style="width: 41.5rem;">
+    <div class="spinner-grow text-light mt-1" role="status" style="width: 25px; height: 25px;">
       <span class="sr-only"></span>
     </div>
   </div>
 
-  <div *ngIf="this.isSave" class="d-flex" style="width: 42.5rem;">
-    <span class="material-symbols-outlined" style="color: darkgreen;">
+  <div *ngIf="this.isSave" class="d-flex" style="width: 41.5rem;">
+    <span class="material-symbols-outlined mt-1" style="color: rgb(0, 136, 0); font-size: 25px;">
       expand_circle_down
     </span>
   </div>
-  
-  
-
-  
-  <!-- <div id="buttons">
-    <ul>
-      <li>
-        <button type="submit">Pesquisa Google</button>
-        <button type="submit">Estou com sorte</button>
-      </li>
-    </ul>
-  </div>
-  <div id="language">
-    <p>Disponibilizado pelo Google em: <span>English</span></p>
-  </div> -->
 </div>
-
-    
-<!-- <div class="page-content page-container h-100" id="page-content">
-  <div class="padding h-100 justify-content-center">
-    <div class="row container d-flex justify-content-center w-100 h-100" style="margin: auto; max-width: 500px;">
-      <div class="col-md-6 h-100 w-100 radius">
-        <div class="card card-bordered h-100 radius">
-          <div class="card-header radius-top">
-            <div class="d-flex align-items-center">
-              <img
-                      class="avatar"
-                      src="./../../assets/file.enc"
-                      alt="..."
-                    />
-              <h4 class="card-title px-3"><strong>Betina - IA SQL</strong></h4>
-            </div>
-            <a style="cursor: pointer;" class="excluir" (click)="limpar()"
-              ><i class="bi bi-trash3 fs-5 p-1"></i></a
-            >
-          </div>
-
-          <div class="loader" *ngIf="this.loading" style="z-index: 9999999999;">
-            <div class="inner one"></div>
-            <div class="inner two"></div>
-            <div class="inner three"></div>
-          </div>
-
-          <div
-            style="background: url('./../../assets/wpp-noturno.jpg');"
-            class="ps-container ps-theme-default ps-active-y h-80"
-            #chatcontent
-            style="overflow-y: scroll !important; height: inherit;"
-          >
-            <div #scroll *ngFor="let message of this.messages" [ngClass]="message.role === 'assistant' ? '' : 'media media-chat media-chat-reverse d-flex'">
-
-              <div *ngIf="message.role === 'assistant'">
-                <div class="media media-chat d-flex">
-                  <div   class="media-body">
-                    <p class="break-line">{{message.content.replaceAll('\\n', '\n')}}</p>
-                    <p *ngIf="message.isRespostaVerificada" class="meta">Resposta do cache ✅</p>
-                  </div>
-                </div>
-              </div>
-
-              <div  *ngIf="message.role === 'user'">
-                <div class="media media-chat d-flex">
-                  <div class="media-body media-body-user">
-                    <p class="break-line">{{message.content}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px">
-              <div
-                class="ps-scrollbar-x"
-                tabindex="0"
-                style="left: 0px; width: 0px"
-              ></div>
-            </div>
-            <div
-              class="ps-scrollbar-y-rail"
-              style="top: 0px; height: 0px; right: 2px"
-
-            >
-              <div
-                class="ps-scrollbar-y"
-                tabindex="0"
-                style="top: 0px; height: 2px"
-              ></div>
-            </div>
-          </div>
-
-          <div class="publisher bt-1 border-light form-group">
-            <input
-              #input
-              id="input"
-              class="publisher-input form-control"
-              type="text"
-              placeholder="Mensagem"
-              (keydown.enter)="enviar()"
-            />
-            <button class="publisher-btn text-info" (click)="enviar()"
-              ><i class="bi bi-send-fill fs-4"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
- -->

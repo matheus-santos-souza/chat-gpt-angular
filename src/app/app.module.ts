@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ChatIntencaoComponent } from './chat-intencao/chat-intencao.component';
 import { ChatBancoComponent } from './chat-banco/chat-banco.component';
 import { ChatFunctionsComponent } from './chat-functions/chat-functions.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ChatFunctionsComponent } from './chat-functions/chat-functions.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSkeletonLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
