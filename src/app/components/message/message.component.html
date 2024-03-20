@@ -1,0 +1,8 @@
+<div *ngIf="this.error && this.textResponse" class="sql-viewer message mt-4" style="border-color: brown;">
+    <p class="break-line text-light m-1">{{textResponse.replaceAll('\\n', '\n')}}</p>
+</div>
+
+<div *ngIf="!this.error && this.textResponse" class="sql-viewer message mt-4">
+    <p class="break-line text-light m-1">{{textResponse.replaceAll('\\n', '\n')}}</p>
+    <p *ngIf="this.isCached" class="m-1"style="color: gray">Resposta do cache ✅</p>
+</div>

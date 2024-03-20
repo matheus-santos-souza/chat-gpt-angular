@@ -1,0 +1,6 @@
+<div *ngIf="this.sqlQuery">
+    <div class="sql-viewer">
+      <h2 class="sql-header">{{titleSql}}</h2>
+      <pre class="sql-code" [innerHTML]="highlightedCode"></pre>
+    </div>
+  </div>

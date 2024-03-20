@@ -1,27 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
-import { ChatIntencaoComponent } from './chat-intencao/chat-intencao.component';
-import { ChatBancoComponent } from './chat-banco/chat-banco.component';
-import { ChatFunctionsComponent } from './chat-functions/chat-functions.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'perguntar', pathMatch: 'full' },
   {
     path: 'perguntar',
-    component: ChatComponent
+    component: ChatComponent,
+    canActivate: [AuthGuard],
   },
   {
-    path: 'intencao',
-    component: ChatIntencaoComponent
-  },
-  {
-    path: 'banco',
-    component: ChatBancoComponent
-  },
-  {
-    path: 'funcionalidades',
-    component: ChatFunctionsComponent
+    path: 'login',
+    component: LoginComponent
   }
 ];
 

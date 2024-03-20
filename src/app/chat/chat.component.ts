@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ChatbotService } from '../chatbot.service';
 import hljs from 'highlight.js';
 import { format } from 'sql-formatter';
@@ -9,12 +9,11 @@ import { format } from 'sql-formatter';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
-  highlightedCode: string = '';
   sqlQuery?: string = ''
   textResponse: string = ''
   loading = false
   isCached = false
-  success = false
+  error = false
 
   isSave = false
   loadingSave = false
@@ -32,7 +31,9 @@ export class ChatComponent {
 
   @ViewChild("input") input!: ElementRef;
 
-  constructor(private chatService: ChatbotService) {}
+  constructor(
+    private chatService: ChatbotService
+  ) {}
 
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -51,15 +52,11 @@ export class ChatComponent {
   }
 
   resetBooleans(): void {
-    this.success = false
+    this.error = false
     this.loading = false
     this.isSave = false
     this.loadingSave = false
     this.isCached = false
-  }
-
-  private highlightCode(sql: string) {
-    this.highlightedCode = hljs.highlight('sql', sql).value;
   }
 
   async enviar(): Promise<any> {
@@ -72,17 +69,11 @@ export class ChatComponent {
       .subscribe({
         next: response => {
           const resposta = response.body
-          this.sqlQuery = format(resposta?.sql || '', {
-            language: 'sql',
-            tabWidth: 2,
-            keywordCase: 'upper',
-            linesBetweenQueries: 2,
-          });
+          this.sqlQuery = resposta?.sql || ''
           this.textResponse = resposta?.response || ''
           this.isCached = resposta?.isCached || false
-          this.success = true
+          this.error = false
           this.loading = false
-          this.highlightCode(this.sqlQuery)
 
           this.saveSql = {
             text: input,
@@ -90,7 +81,9 @@ export class ChatComponent {
           }
         },
         error: error => {
-          this.success = false
+          console.log(error)
+          this.textResponse = '❌ Parece que o servidor está enfrentando problemas para responder! Tente novamente mais tarde!'
+          this.error = true
           this.loading = false
         },
       });
@@ -101,12 +94,11 @@ export class ChatComponent {
     this.loadingSave = true
     this.chatService.saveSqlQuery(this.saveSql)
       .subscribe({
-        next: response => {
-          const resposta = response.body
+        next: () => {
           this.isSave = true
           this.loadingSave = false
         },
-        error: error => {
+        error: () => {
           this.isSave = false
           this.loadingSave = false
         },

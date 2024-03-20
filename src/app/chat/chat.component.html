@@ -1,60 +1,49 @@
-<div class="d-flex flex-column justify-content-center align-items-center">
-  <div class="betina-container mt-5">
-    <h1 class="betina">
+<div class="d-flex flex-column justify-content-center align-items-center" #tela>
+  <div class="mt-4">
+    <h1 class="betina mt-4">
       Betina
     </h1>
   </div>
   <div id="search-bar">
-    <div class="form">
-
-   
+    <div class="form mt-3">
       <div>
-        <img src="../../assets/search.png" alt = 'Ícone Pesquisa' id = search-icon (click)="enviar()">
+        <img src="../../assets/search.png" alt = 'Ícone Pesquisa' id = search-icon (click)="enviar()" data-toggle="tooltip" data-placement="bottom" title="Pesquisar">
       </div>
-      <input type="text" placeholder="Pesquisa na Betina" (keydown.enter)="enviar()" #input>
+      <input type="text" placeholder="Pesquisa de vendas na Betina" (keydown.enter)="enviar()" #input>
       <div>
-        <span class="material-symbols-outlined" alt="Limpar" id=keyboard-icon (click)="limpar()">
+        <span class="material-symbols-outlined" alt="Limpar" id=keyboard-icon (click)="limpar()" data-toggle="tooltip" data-placement="bottom" title="Limpar">
           close
         </span>
       </div>
     </div>
   </div>
 
-  <div *ngIf="this.loading" class="item mt-4">
+  <div *ngIf="this.loading" class="item mt-4 responsive-icons">
     <ngx-skeleton-loader count="1" animation="pulse" [theme]="{ 
-      'border-radius': '5px',
-      height: '100px',
-      'width': '42rem',
+      'border-radius': '1px',
+      'height': '100px',
       'background-color': 'rgb(80, 80, 80)'
     }" />
   </div>
 
-  <div *ngIf="this.success && this.textResponse && !this.loading" class="sql-viewer mt-4" style="width: 39rem;">
-    <p class="break-line text-light m-1">{{textResponse.replaceAll('\\n', '\n')}}</p>
-    <p *ngIf="this.isCached" class="m-1"style="color: gray">Resposta do cache ✅</p>
-  </div>
+  <app-message *ngIf="!this.loading" [error]="this.error" [textResponse]="this.textResponse" [isCached]="this.isCached"></app-message>
 
-  <div *ngIf="this.success && this.sqlQuery && !this.loading && this.isSqlVisible">
-    <div  class="sql-viewer">
-      <h2 class="sql-header">Consulta SQL</h2>
-      <pre class="sql-code" [innerHTML]="highlightedCode"></pre>
-    </div>
-  </div>
+  <app-sql-message *ngIf="!this.loading && this.isSqlVisible" titleSql="Consulta SQL" [sqlQuery]="this.sqlQuery" ></app-sql-message>
 
-  <div *ngIf="this.success && this.sqlQuery && !this.loading && !this.isCached && !this.isSave && !this.loadingSave" class="d-flex" style="width: 41.5rem;">
-    <span class="material-symbols-outlined joinha mt-1" alt="Aprovar" (click)="salvar()" style="font-size: 25px;">
+  <div *ngIf="this.sqlQuery && !this.loading && !this.isCached && !this.isSave && !this.loadingSave" class="d-flex responsive-icons">
+    <span class="material-symbols-outlined joinha mt-1" alt="Aprovar" (click)="salvar()" style="font-size: 25px;" data-toggle="tooltip" data-placement="bottom" title="Resposta boa">
       thumb_up
     </span>
   </div>
 
-  <div *ngIf="this.loadingSave" class="d-flex" style="width: 41.5rem;">
+  <div *ngIf="this.loadingSave" class="d-flex responsive-icons">
     <div class="spinner-grow text-light mt-1" role="status" style="width: 25px; height: 25px;">
       <span class="sr-only"></span>
     </div>
   </div>
 
-  <div *ngIf="this.isSave" class="d-flex" style="width: 41.5rem;">
-    <span class="material-symbols-outlined mt-1" style="color: rgb(0, 136, 0); font-size: 25px;">
+  <div *ngIf="this.isSave" class="d-flex responsive-icons">
+    <span class="material-symbols-outlined mt-1" style="color: rgb(0, 136, 0); font-size: 25px;" data-toggle="tooltip" data-placement="bottom" title="Resposta salva">
       expand_circle_down
     </span>
   </div>

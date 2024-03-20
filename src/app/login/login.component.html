@@ -1,0 +1,85 @@
+<main class="login">
+  <div
+    class="row col-12 col-sm-12 col-md-12 col-xl-12"
+    style="max-width: 1280px">
+    <div class="d-flex justify-content-center mt-5 mb-5">
+      <mat-card class="text-center">
+        <form
+          [formGroup]="this.formLogin"
+          *ngIf="!this.authenticate">
+          <div class="p-2">
+            <mat-card-content class="d-flex flex-column">
+              <div class="d-flex justify-content-center mb-4">
+                <img
+                  style="width: 140px"
+                  src="../../assets/file.enc"
+                  alt="logo" />
+              </div>
+              <mat-form-field appearance="fill" class="mb-2 mt-1">
+                <mat-label class="text-muted fs-6">Usuário</mat-label>
+                <input
+                  (keyup.enter)="entrar()"
+                  matInput
+                  placeholder="Usuário"
+                  formControlName="user"
+                  required />
+                <mat-icon matSuffix class="text-muted">person</mat-icon>
+                <mat-error
+                  *ngIf="this.formLogin.get('user')?.hasError('required')"
+                  >Usuário é obrigatório.</mat-error
+                >
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="mt-2">
+                <mat-label class="text-muted fs-6">Senha</mat-label>
+                <input
+                  (keyup.enter)="entrar()"
+                  formControlName="senha"
+                  required
+                  matInput
+                  [type]="hide ? 'password' : 'text'" />
+                <button
+                  style="border: 0; background-color: transparent;"
+                  mat-icon-button
+                  matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide"
+                  class="px-2">
+                  <mat-icon class="text-muted">{{
+                    hide ? 'visibility_off' : 'visibility'
+                  }}</mat-icon>
+                </button>
+                <mat-error
+                  *ngIf="this.formLogin.get('senha')?.hasError('required')"
+                  >Senha é obrigatório.</mat-error
+                >
+              </mat-form-field>
+
+              <div class="row container-entrar mt-4 mb-2">
+                <div class="col-12 col-sm-12 col-md-12 col-xl-12">
+                  <button
+                    [disabled]="this.loading"
+                    mat-raised-button
+                    color="primary"
+                    class="w-100 entrar"
+                    type="submit"
+                    (keyup.enter)="entrar()"
+                    (click)="entrar()">
+                    <div
+                      *ngIf="this.loading"
+                      class="spinner-grow text-light"
+                      role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <span class="text-light" *ngIf="!this.loading">Entrar</span>
+                  </button>
+                </div>
+              </div>
+            </mat-card-content>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</main>
