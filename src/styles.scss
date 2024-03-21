@@ -143,7 +143,8 @@ $dark-app-theme: mat.define-dark-theme(
   }
 }
 
-body {
+html, body {
+  background-color: rgb(53, 53, 53);
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -173,11 +174,6 @@ input[type="text"]::-webkit-search-cancel-button {
 /* Estilos para remover o 'X' do input em outros navegadores */
 input[type="text"] {
   appearance: none;
-}
-
-
-body {
-  background-color: rgb(53, 53, 53);
 }
 
 p{
@@ -214,11 +210,8 @@ span{
   overflow-x: auto;
 }
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.break-line {
+  white-space: pre-wrap;
 }
 
 @media screen and (max-width: 768px) {
